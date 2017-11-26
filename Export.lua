@@ -1,0 +1,1 @@
+local Cockpitpp=require('lfs');dofile(Cockpitpp.writedir()..'Scripts/Cockpit++.lua')  
