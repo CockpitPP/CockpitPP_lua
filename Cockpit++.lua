@@ -27,7 +27,7 @@
 --Pilot, please edit only these three lines
 ----------------------------------------------------------------------------------
  -- PUT YOUR ANDROID IP(S) in the next line, you will find the Android IP in the app, going in 'settings':
-local clientIP={"192.168.0.10", "192.168.0.14", "192.168.0.20"} 
+local clientIP={"192.168.0.10", "192.168.0.14", "192.168.0.20", "192.168.0.22"} 
 --Several Android devices, for only 1 device enter: local clientIP={"192.168.0.10"}
 
 
@@ -61,7 +61,7 @@ local ANDROID_PORT = 14800
 ----------------------------------------------------------------------------------
 --Developers, if you know what you are doing, feel free to change things here
 ----------------------------------------------------------------------------------
-local version = 2
+local version = 3
 local log_file = nil
 local lengthIPTable = 0
 local ipUsed = 1
@@ -223,6 +223,11 @@ function LuaExportAfterNextFrame()
 				local MainPanel = GetDevice(0)
 				armament_panel = MainPanel:get_argument_value(252) ..";".. MainPanel:get_argument_value(253) ..";".. MainPanel:get_argument_value(256) ..";".. MainPanel:get_argument_value(257) ..";".. MainPanel:get_argument_value(258) ..";".. MainPanel:get_argument_value(259) ..";".. MainPanel:get_argument_value(260)
 				msgOut = msgOut..armament_panel..",".." \n"
+		
+				
+			elseif currentAircraft == "AV8BNA" and GetDevice(0) ~= 0 then
+				local MainPanel = GetDevice(0)
+				msgOut = msgOut..MainPanel:get_argument_value(487) ..";".. MainPanel:get_argument_value(488) ..",".." \n"
 		
 			end
 			
