@@ -27,7 +27,7 @@
 --Pilot, please edit only these three lines
 ----------------------------------------------------------------------------------
  -- PUT YOUR ANDROID IP(S) in the next line, you will find the Android IP in the app, going in 'settings':
-local clientIP={"192.168.0.10", "192.168.0.14", "192.168.0.20", "192.168.0.22"} 
+local clientIP={"192.168.2.81"}--, "192.168.0.14", "192.168.0.20", "192.168.0.22"} 
 --Several Android devices, for only 1 device enter: local clientIP={"192.168.0.10"}
 
 
@@ -181,8 +181,18 @@ function LuaExportAfterNextFrame()
 			currentAircraft = selfData["Name"]
         
 			msgOut = HEAD_MSG..","..version..","..currentAircraft ..","
-
-			if currentAircraft == "M-2000C" and GetDevice(0) ~= 0 then
+			
+			
+			if currentAircraft == "A-10C" and GetDevice(0) ~= 0 then
+     		local MainPanel = GetDevice(0)
+     		vvi = MainPanel:get_argument_value(12)
+     		msgOut = msgOut .. vvi .. " \n"
+				--msgOut(0) Cockpit++ (header)
+				--msgOut(1) lua version
+				--msgOut(2) aircraft identifier
+				--msgOut(3) vvi
+				
+			elseif currentAircraft == "M-2000C" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
   
 				pca = MainPanel:get_argument_value(234) ..";".. MainPanel:get_argument_value(463) ..";".. MainPanel:get_argument_value(249) ..";".. MainPanel:get_argument_value(248) ..";".. MainPanel:get_argument_value(236) ..";".. MainPanel:get_argument_value(238) ..";".. MainPanel:get_argument_value(240) ..";".. MainPanel:get_argument_value(242) ..";".. MainPanel:get_argument_value(244) ..";".. MainPanel:get_argument_value(246) ..";".. MainPanel:get_argument_value(247) ..";".. MainPanel:get_argument_value(251) ..";".. MainPanel:get_argument_value(252) ..";".. MainPanel:get_argument_value(254) ..";".. MainPanel:get_argument_value(255) ..";".. MainPanel:get_argument_value(257) ..";".. MainPanel:get_argument_value(258) ..";".. MainPanel:get_argument_value(260) ..";".. MainPanel:get_argument_value(261) ..";".. MainPanel:get_argument_value(263) ..";".. MainPanel:get_argument_value(264)
