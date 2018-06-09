@@ -27,7 +27,7 @@
 --Pilot, please edit only these three lines
 ----------------------------------------------------------------------------------
  -- PUT YOUR ANDROID IP(S) in the next line, you will find the Android IP in the app, going in 'settings':
-local clientIP={"192.168.2.81"}--, "192.168.0.14", "192.168.0.20", "192.168.0.22"} 
+local clientIP={"192.168.0.18","192.168.0.10"} 
 --Several Android devices, for only 1 device enter: local clientIP={"192.168.0.10"}
 
 
@@ -65,7 +65,7 @@ local version = 3
 local log_file = nil
 local lengthIPTable = 0
 local ipUsed = 1
-local DELAY = 5
+local DELAY = 5 --Reduce this value if you want to have a hight framerate, but can affect your CPU for DCS!!!
 local POSITION = 0
 
 local HEAD_MSG = "Cockpit++"
@@ -232,6 +232,8 @@ function LuaExportAfterNextFrame()
 					15 = hsi_tofrom1
 					16 = hsi_tofrom2
 				]]--
+				
+				
 			elseif currentAircraft == "M-2000C" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
   
@@ -250,6 +252,7 @@ function LuaExportAfterNextFrame()
 				
 				msgOut = msgOut..list_indication(6)..","..list_indication(7)..","..pca..","..list_indication(8)..","..ppa..","..insdata..","..list_indication(11)..","..ins..","..ins_knob..",".." \n"
 
+				
 			elseif currentAircraft == "F-15C" and LoGetTWSInfo() then
 				local result_of_LoGetTWSInfo = LoGetTWSInfo()
 				if result_of_LoGetTWSInfo then
@@ -269,6 +272,7 @@ function LuaExportAfterNextFrame()
 					msgOut = msgOut..data
 				end
 				
+				
 			elseif currentAircraft == "UH-1H" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
 				armament_panel = MainPanel:get_argument_value(252) ..";".. MainPanel:get_argument_value(253) ..";".. MainPanel:get_argument_value(256) ..";".. MainPanel:get_argument_value(257) ..";".. MainPanel:get_argument_value(258) ..";".. MainPanel:get_argument_value(259) ..";".. MainPanel:get_argument_value(260)
@@ -278,6 +282,12 @@ function LuaExportAfterNextFrame()
 			elseif currentAircraft == "AV8BNA" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
 				msgOut = msgOut..MainPanel:get_argument_value(487) ..";".. MainPanel:get_argument_value(488) ..",".." \n"
+				
+		
+			elseif currentAircraft == "MiG-21Bis" and GetDevice(0) ~= 0 then
+				local MainPanel = GetDevice(0)
+				radarPanel = MainPanel:get_argument_value(205) ..";".. MainPanel:get_argument_value(206) ..";".. MainPanel:get_argument_value(207)
+				msgOut = msgOut.. radarPanel ..",".." \n"
 		
 			end
 			
