@@ -170,7 +170,7 @@ function LuaExportAfterNextFrame()
 
 	if prevLuaExportAfterNextFrame then
         prevLuaExportAfterNextFrame()
-    end
+	end
 	
 	POSITION = POSITION + 1
 
@@ -186,12 +186,52 @@ function LuaExportAfterNextFrame()
 			if currentAircraft == "A-10C" and GetDevice(0) ~= 0 then
      		local MainPanel = GetDevice(0)
      		vvi = MainPanel:get_argument_value(12)
-     		msgOut = msgOut .. vvi .. " \n"
+				
+				hsi_course = MainPanel:get_argument_value(47)
+				hsi_power_off_flag =  MainPanel:get_argument_value(40)
+				hsi_range_flag =  MainPanel:get_argument_value(32)
+				hsi_bearing_flag =  MainPanel:get_argument_value(46)
+				hsi_hdg =  MainPanel:get_argument_value(34)
+				hsi_bearing1 =  MainPanel:get_argument_value(33)
+				hsi_bearing2 =  MainPanel:get_argument_value(35)
+				hsi_hdg_bug =  MainPanel:get_argument_value(36)
+				hsi_cc_a =  MainPanel:get_argument_value(37)
+				hsi_cc_b =  MainPanel:get_argument_value(39) 
+				hsi_rc_a =  MainPanel:get_argument_value(28)
+				hsi_rc_b =  MainPanel:get_argument_value(29)
+				hsi_rc_c =  MainPanel:get_argument_value(30)
+				hsi_rc_d =  MainPanel:get_argument_value(31)
+				hsi_deviation =  MainPanel:get_argument_value(41)
+				hsi_tofrom1 =  MainPanel:get_argument_value(42)
+				hsi_tofrom2 =  MainPanel:get_argument_value(43)
+				
+				hsi = hsi_course .. ";" ..  hsi_power_off_flag .. ";" ..  hsi_range_flag .. ";" ..  hsi_bearing_flag .. ";" ..  hsi_hdg .. ";" ..  hsi_bearing1 .. ";" ..  hsi_bearing2 .. ";" ..  hsi_hdg_bug .. ";" ..  hsi_cc_a .. ";" ..  hsi_cc_b .. ";" .. hsi_rc_a  .. ";" ..  hsi_rc_b .. ";" ..  hsi_rc_c  .. ";" ..  hsi_rc_d .. ";" ..  hsi_deviation  .. ";" ..  hsi_tofrom1 .. ";" ..  hsi_tofrom2
+     		msgOut = msgOut .. vvi .. "," .. hsi .." \n"
 				--msgOut(0) Cockpit++ (header)
 				--msgOut(1) lua version
 				--msgOut(2) aircraft identifier
 				--msgOut(3) vvi
+				--msgOut(4) hsi ; separated
 				
+				--[[ HSI table :
+					0 = hsi_course
+					1 = hsi_power_off_flag
+					2 = hsi_range_flag
+					3 = hsi_bearing_flag
+					4 = hsi_hdg
+					5 = hsi_bearing1
+					6 = hsi_bearing2
+					7 = hsi_hdg_bug
+					8 = hsi_cc_a
+					9 = hsi_cc_b
+					10 = hsi_rc_a
+					11 = hsi_rc_b
+					12 = hsi_rc_c
+					13 = hsi_rc_d
+					14 = hsi_deviation
+					15 = hsi_tofrom1
+					16 = hsi_tofrom2
+				]]--
 			elseif currentAircraft == "M-2000C" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
   
