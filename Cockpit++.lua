@@ -26,9 +26,9 @@
 ----------------------------------------------------------------------------------
 --Pilot, please edit only these three lines
 ----------------------------------------------------------------------------------
- -- PUT YOUR ANDROID IP(S) in the next line, you will find the Android IP in the app, going in 'settings':
-local clientIP={"192.168.0.18","192.168.0.10"} 
---Several Android devices, for only 1 device enter: local clientIP={"192.168.0.10"}
+-- PUT YOUR ANDROID IP(S) in the next line, you will find the Android IP in the app, going in 'settings':
+local clientIP={"192.168.0.15"} 
+-- If you want to have several devices, just add IP like that : clientIP={"192.168.0.10","192.168.0.15"}
 
 
 --Editable but not mandatory, put them in the app
@@ -61,7 +61,7 @@ local ANDROID_PORT = 14800
 ----------------------------------------------------------------------------------
 --Developers, if you know what you are doing, feel free to change things here
 ----------------------------------------------------------------------------------
-local version = 3
+local version = 4
 local log_file = nil
 local lengthIPTable = 0
 local ipUsed = 1
@@ -186,7 +186,6 @@ function LuaExportAfterNextFrame()
 			if currentAircraft == "A-10C" and GetDevice(0) ~= 0 then
      		local MainPanel = GetDevice(0)
      		vvi = MainPanel:get_argument_value(12)
-				
 				hsi_course = MainPanel:get_argument_value(47)
 				hsi_power_off_flag =  MainPanel:get_argument_value(40)
 				hsi_range_flag =  MainPanel:get_argument_value(32)
@@ -203,17 +202,35 @@ function LuaExportAfterNextFrame()
 				hsi_rc_d =  MainPanel:get_argument_value(31)
 				hsi_deviation =  MainPanel:get_argument_value(41)
 				hsi_tofrom1 =  MainPanel:get_argument_value(42)
-				hsi_tofrom2 =  MainPanel:get_argument_value(43)
-				
+				hsi_tofrom2 =  MainPanel:get_argument_value(43)				
 				hsi = hsi_course .. ";" ..  hsi_power_off_flag .. ";" ..  hsi_range_flag .. ";" ..  hsi_bearing_flag .. ";" ..  hsi_hdg .. ";" ..  hsi_bearing1 .. ";" ..  hsi_bearing2 .. ";" ..  hsi_hdg_bug .. ";" ..  hsi_cc_a .. ";" ..  hsi_cc_b .. ";" .. hsi_rc_a  .. ";" ..  hsi_rc_b .. ";" ..  hsi_rc_c  .. ";" ..  hsi_rc_d .. ";" ..  hsi_deviation  .. ";" ..  hsi_tofrom1 .. ";" ..  hsi_tofrom2
-     		msgOut = msgOut .. vvi .. "," .. hsi .." \n"
+				
+				engine_left_core_speed_tenth = MainPanel:get_argument_value(78)
+				engine_right_core_speed_tenth = MainPanel:get_argument_value(80)
+				engine_left_core_speed = MainPanel:get_argument_value(79)
+				engine_right_core_speed = MainPanel:get_argument_value(81)
+				engine_left_oil_pressure = MainPanel:get_argument_value(82)
+				engine_right_oil_pressure = MainPanel:get_argument_value(83)				
+				emi_left_panel_gauges = engine_left_core_speed_tenth .. ";" ..  engine_right_core_speed_tenth .. ";" ..  engine_left_core_speed .. ";" ..  engine_right_core_speed .. ";" ..  engine_left_oil_pressure .. ";" ..  engine_right_oil_pressure
+								
+				engine_left_fan_speed = MainPanel:get_argument_value(76)
+				engine_right_fan_speed = MainPanel:get_argument_value(77)
+				engine_left_fuel_flow = MainPanel:get_argument_value(84)
+				engine_right_fuel_flow = MainPanel:get_argument_value(85)
+				apu_rpm = MainPanel:get_argument_value(13)
+				apu_temperature = MainPanel:get_argument_value(14)
+				emi_right_panel_gauges = engine_left_fan_speed .. ";" ..  engine_right_fan_speed .. ";" ..  engine_left_fuel_flow .. ";" ..  engine_right_fuel_flow .. ";" ..  apu_rpm .. ";" ..  apu_temperature
+				
+     				msgOut = msgOut .. vvi .. "," .. hsi .. "," .. emi_left_panel_gauges .. "," .. emi_right_panel_gauges .." \n"
 				--msgOut(0) Cockpit++ (header)
 				--msgOut(1) lua version
 				--msgOut(2) aircraft identifier
 				--msgOut(3) vvi
 				--msgOut(4) hsi ; separated
-				
-				--[[ HSI table :
+				--msgOut(5) emi_left ; separated
+				--msgOut(6) emi_right ; separated
+				--[[ 
+					HSI table :
 					0 = hsi_course
 					1 = hsi_power_off_flag
 					2 = hsi_range_flag
@@ -231,8 +248,23 @@ function LuaExportAfterNextFrame()
 					14 = hsi_deviation
 					15 = hsi_tofrom1
 					16 = hsi_tofrom2
+					
+					EMI left panel gauges table :
+					[0] = engine_left_core_speed_tenth
+					[1] = engine_right_core_speed_tenth
+					[2] = engine_left_core_speed
+					[3] = engine_right_core_speed
+					[4] = engine_left_oil_pressure
+					[5] = engine_right_oil_pressure
+					
+					EMI right panel gauges table :
+					[0] = engine_left_fan_speed
+					[1] = engine_right_fan_speed
+					[2] = engine_left_fuel_flow
+					[3] = engine_right_fuel_flow
+					[4] = apu_rpm
+					[5] = apu_temperature
 				]]--
-				
 				
 			elseif currentAircraft == "M-2000C" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
@@ -286,7 +318,9 @@ function LuaExportAfterNextFrame()
 		
 			elseif currentAircraft == "MiG-21Bis" and GetDevice(0) ~= 0 then
 				local MainPanel = GetDevice(0)
-				radarPanel = MainPanel:get_argument_value(205) ..";".. MainPanel:get_argument_value(206) ..";".. MainPanel:get_argument_value(207)
+				radarPanel = MainPanel:get_argument_value(205) ..";".. MainPanel:get_argument_value(206) ..";".. MainPanel:get_argument_value(207) ..";".. MainPanel:get_argument_value(553) ..";".. MainPanel:get_argument_value(554) ..";".. MainPanel:get_argument_value(555)
+				
+				
 				msgOut = msgOut.. radarPanel ..",".." \n"
 		
 			end
