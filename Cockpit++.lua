@@ -274,7 +274,7 @@ function LuaExportAfterNextFrame()
 				ppa = MainPanel:get_argument_value(276) ..";".. MainPanel:get_argument_value(265) ..";".. MainPanel:get_argument_value(277) ..";".. MainPanel:get_argument_value(278) ..";".. MainPanel:get_argument_value(275) ..";".. MainPanel:get_argument_value(267) ..";".. MainPanel:get_argument_value(268) ..";".. MainPanel:get_argument_value(270) ..";".. MainPanel:get_argument_value(271) ..";".. MainPanel:get_argument_value(273) ..";".. MainPanel:get_argument_value(274) ..";".. MainPanel:get_argument_value(280) ..";".. MainPanel:get_argument_value(281)
 				
 				local insdata = "";
-				for line in string.gmatch(list_indication(10), "[^%s]+") do
+				for line in string.gmatch(list_indication(9), "[^%s]+") do
 					insdata = insdata.."\n"..line:sub(-25)	
 				end
 				
@@ -282,7 +282,7 @@ function LuaExportAfterNextFrame()
 
 				ins_knob = MainPanel:get_argument_value(627)..";".. MainPanel:get_argument_value(629)
 				
-				msgOut = msgOut..list_indication(6)..","..list_indication(7)..","..pca..","..list_indication(8)..","..ppa..","..insdata..","..list_indication(11)..","..ins..","..ins_knob..",".." \n"
+				msgOut = msgOut..list_indication(4)..","..list_indication(5)..","..pca..","..list_indication(6)..","..ppa..","..insdata..","..list_indication(10)..","..ins..","..ins_knob..",".." \n"
 
 				
 			elseif currentAircraft == "F-15C" and LoGetTWSInfo() then
